@@ -30,7 +30,6 @@ Route::get('foo', function () {
 Route::get('blade', function () {
     return view('child');
 });
-Route::get('/user','UserController@login');
 
 Route::get('/employee','EmployeeController@index');
 Route::get('employee/getallEmployee','EmployeeController@getallEmployee');
@@ -44,5 +43,6 @@ Route::get('/inlinecrud/getallemplist','InlineCrudController@getallEmpList');
 Route::get('/inlinecrud/inlinecrud2','InlineCrudController@InlineCrud2');
 Route::post('/inlinecrud/updateEmployee','InlineCrudController@updateEmployee');
 Route::get('/inlinecrud/deleteEmployee','InlineCrudController@deleteEmployee');
-
+Route::get('/user','UserController@index');
 Route::post('/user/login','UserController@login');
+Route::get('/user/logout','UserController@logout');

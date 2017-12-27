@@ -6,12 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class EmployeeController extends Controller
 {
-	public function index(){
-		$employeelist = DB::select('select * from employees where status = ?', [1]);
- 		return view('employee/employee_list', ['employeelist' => $employeelist]);
+	public function index(Request $request){
+		$data = $request->session()->all();
+		// echo'<pre>';print_r($data);exit;
+		if(empty($data['username'])){
+			return Redirect::to('user');
+		}
+		else{
+			$employeelist = DB::select('select * from employees where status = ?', [1]);
+	 		return view('employee/employee_list', ['employeelist' => $employeelist]);
+		}
 	}
 
 	public function getallEmployee(){

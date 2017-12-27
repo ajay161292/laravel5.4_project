@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Redirect;
 
 
 class UserController extends Controller
@@ -14,8 +14,15 @@ class UserController extends Controller
 		# code...
 	}
 
-	public function index(){
-		return view('user/index');
+	public function index(Request $request){
+		$data = $request->session()->all();
+		// print_r($data);exit;
+		if($request->session()->exists('username')) {
+		    // return redirect()->route('employee');
+		    return view('employee/employee_list');
+		}else{
+			return view('user/index');
+		}
 	}
 
 	public function login(Request $request){
@@ -40,14 +47,12 @@ class UserController extends Controller
 		//Retrieving All Session Data
 		$data = $request->session()->all();
 
-		if ($request->session()->has('users')) {
-		    //
-		}
-		if ($request->session()->exists('users')) {
-		    //
-		}
-
-
+		$request->session()->flush();
+		// print_r($data);exit;
+		// return redirect()->route('user');
+		return Redirect::to('user');
+		// header('Location: user');
+		exit;
 	}
 }
 ?>
